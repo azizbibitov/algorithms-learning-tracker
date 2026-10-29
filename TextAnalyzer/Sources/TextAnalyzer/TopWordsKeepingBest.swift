@@ -38,7 +38,3 @@ func topWordsKeepingBest(
     
     return mergeSort(array: candidates)
 }
-
-func isBetter(first: (key: String, value: Int), second: (key: String, value: Int)) -> Bool {
-    return first.value > second.value || first.value == second.value && first.key < second.key
-}

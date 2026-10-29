@@ -10,7 +10,9 @@ trap 'rm -rf -- "$build_dir"' EXIT
 
 swiftc -O \
     "$benchmark_dir/../Sources/TextAnalyzer/TopWords.swift" \
+    "$benchmark_dir/../Sources/TextAnalyzer/TopWordsKeepingBest.swift" \
     "$benchmark_dir/../Sources/TextAnalyzer/MergeSort.swift" \
+    "$benchmark_dir/../Sources/TextAnalyzer/WordRanking.swift" \
     "$benchmark_dir/main.swift" \
     -o "$build_dir/top-words-benchmark"
 

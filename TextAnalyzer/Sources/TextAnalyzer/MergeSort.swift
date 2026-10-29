@@ -17,22 +17,12 @@ func merge(
     
     while indexL < left.count && indexR < right.count {
         
-        if left[indexL].value == right[indexR].value {
-            if left[indexL].key < right[indexR].key {
-                result.append(left[indexL])
-                indexL += 1
-            }else{
-                result.append(right[indexR])
-                indexR += 1
-            }
+        if isBetter(first: left[indexL], second: right[indexR]) {
+            result.append(left[indexL])
+            indexL += 1
         }else{
-            if left[indexL].value > right[indexR].value {
-                result.append(left[indexL])
-                indexL += 1
-            }else{
-                result.append(right[indexR])
-                indexR += 1
-            }
+            result.append(right[indexR])
+            indexR += 1
         }
     }
     

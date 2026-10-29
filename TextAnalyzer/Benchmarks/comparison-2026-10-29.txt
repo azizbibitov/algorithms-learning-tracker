@@ -1,0 +1,30 @@
+Date: 2026-10-29T18:01:25+05:00
+Machine: Apple M1
+macOS: 27.0.1
+Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)
+Target: arm64-apple-macosx27.0.0
+Tests: swift test passed, 38 tests; 567 input/limit combinations checked against an independent oracle.
+This comparison uses the current custom merge sort; baseline.txt records an earlier built-in-sort run.
+
+Ranking comparison — optimized build (swiftc -O)
+Full sort = topWords (custom mergeSort of all entries)
+Keep best = topWordsKeepingBest (scan candidates, then mergeSort candidates)
+3 warm-ups and 11 measured calls per algorithm/scenario
+Same inputs; alternating algorithm order; rotating scenario order.
+Input generation, reference sorting, validation, file I/O, counting, and printing are not timed.
+n | limit | Full median ms | Keep median ms | Full/Keep | Full min..max ms | Keep min..max ms
+1000 | 3 | 0.888 | 0.122 | 7.31x | 0.881..0.932 | 0.121..0.136
+1000 | 30 | 0.887 | 1.028 | 0.86x | 0.881..0.961 | 1.023..1.121
+1000 | 300 | 0.915 | 7.243 | 0.13x | 0.887..0.945 | 7.115..7.446
+10000 | 3 | 11.527 | 1.562 | 7.38x | 11.373..11.750 | 1.516..1.657
+10000 | 30 | 11.500 | 11.020 | 1.04x | 11.347..11.822 | 10.854..11.243
+10000 | 300 | 11.519 | 98.558 | 0.12x | 11.325..11.636 | 98.153..100.195
+100000 | 3 | 142.457 | 19.382 | 7.35x | 140.427..147.361 | 17.736..21.215
+100000 | 30 | 142.496 | 179.017 | 0.80x | 139.772..149.849 | 177.241..186.374
+100000 | 300 | 142.638 | 1104.331 | 0.13x | 140.508..145.347 | 1098.685..1160.228
+1000 | 500 | 0.903 | 8.724 | 0.10x | 0.892..0.943 | 8.667..8.836
+1000 | 1000 | 0.874 | 0.876 | 1.00x | 0.869..0.920 | 0.871..0.904
+Full/Keep > 1 means keeping candidates was faster; < 1 means full sorting was faster.
+All warm-up and measured results matched the independent reference, including output order.
+Fixed synthetic keys/counts; dictionary iteration order can change between processes.
+Times describe this machine/run and include allocation and string comparison costs.
