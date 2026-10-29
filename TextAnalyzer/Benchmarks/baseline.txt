@@ -1,0 +1,23 @@
+Date: 2026-10-27
+Machine: Apple M1
+OS: macOS 27.0.1
+Compiler: Apple Swift 6.4 (swiftlang-6.4.0.34.1)
+Build: swiftc -O, using Sources/TextAnalyzer/TopWords.swift
+Algorithm: sort all entries, then take the first three
+Input: synthetic fixed-length keys; seeded counts 1...1000;
+       three known winners at 1001, ordered alphabetically
+Sampling: 3 warm-ups and 31 measured calls per size, sizes interleaved
+Excluded: input generation, validation, file I/O, word counting, printing
+
+Distinct words | Median ms | Fastest ms | Slowest ms | Growth
+          1000 |     0.123 |      0.105 |      0.166 |      -
+         10000 |     1.861 |      1.658 |      2.973 | 15.11x
+        100000 |    53.237 |     47.199 |     79.850 | 28.61x
+
+All measured results matched the expected top three words and counts.
+All 18 unit tests passed after extracting TopWords.swift.
+
+This is one local run, not a universal speed guarantee. The data values are
+reproducible, but Swift dictionary iteration order can change between processes.
+With the fixed count range, larger inputs contain more equal counts and invoke
+more alphabetical tie-breaking. This benchmark does not isolate that cost.
